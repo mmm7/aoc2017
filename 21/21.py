@@ -9,4 +9,10 @@ print(S)
 for i in range(2):
   print('================================',i)
   if len(S)%2==0:
-    pass
+    for y in range(0,S.shape[1],2):
+      for x in range(0,S.shape[0],2):
+        print(x,y)
+  else:
+    for y in range(0,S.shape[1],3):
+      for x in range(0,S.shape[0],3):
+        print(x,y)
