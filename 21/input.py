@@ -17,11 +17,9 @@ for l in sys.stdin:
   t=np.array(tuple([tuple(map(de,x)) for x in tt.split('/')]))
   #print(s,'\n',t)
   assert (len(s), len(t)) in ((2,3), (3,4)), (s,'\n',t)
-  C = (C2,C3)[len(ss)!=2]
+  C = (C2,C3)[len(s)!=2]
   for _ in range(2):
     for _ in range(4):
       C[str(s)]=t
-      np.rot90(s)
-      np.rot90(t)
-    np.transpose(s)
-    np.transpose(t)
+      s=np.rot90(s)
+    s=np.transpose(s)
