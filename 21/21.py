@@ -9,29 +9,32 @@ from input import C2,C3
 S = np.array([[0,1,0],[0,0,1],[1,1,1]])
 #print(S)
 
+def _step_internal(S, C, size):
+  lines=[]
+  for y in range(0,S.shape[1],size):
+    line=[]
+    for x in range(0,S.shape[0],size):
+      #print(x,y)
+      inp=S[x:x+size , y:y+size]
+      line.append(C[str(inp)])
+    lines.append(np.concatenate(line))
+  return np.concatenate(lines, axis=1)
+
+def step(S):
+  if len(S)%2==0:
+    return _step_internal(S,C2,2)
+  else:
+    return _step_internal(S,C3,3)
+
 for i in range(5):
   print('================================',i)
   print(S)
-  if len(S)%2==0:
-    lines=[]
-    for y in range(0,S.shape[1],2):
-      line=[]
-      for x in range(0,S.shape[0],2):
-        print(x,y)
-        inp=S[x:x+2 , y:y+2]
-        line.append(C2[str(inp)])
-      lines.append(np.concatenate(line))
-    S = np.concatenate(lines, axis=1)
-  else:
-    lines=[]
-    for y in range(0,S.shape[1],3):
-      line=[]
-      for x in range(0,S.shape[0],3):
-        print(x,y)
-        inp=S[x:x+3 , y:y+3]
-        line.append(C3[str(inp)])
-      lines.append(np.concatenate(line))
-    S = np.concatenate(lines, axis=1)
+  S = step(S)
 
 print(S)
-print(np.sum(S))
+print('1--->',np.sum(S))
+
+for i in range(5,18):
+  print('================================',i)
+  S = step(S)
+print('2--->',np.sum(S))
